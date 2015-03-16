@@ -196,7 +196,7 @@ public abstract class GameTemplate extends Canvas implements Runnable, KeyListen
 		Frame myFrame=new Frame(); 
 		 
 		myFrame.setSize(  width,height); //frame size
-		myFrame.setBackground(Color.white);
+		//myFrame.setBackground(Color.white);
 		 
 		myFrame.add(game);
 		game.addKeyListener(game);
