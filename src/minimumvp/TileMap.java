@@ -1,5 +1,6 @@
 package minimumvp;
 
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -45,5 +46,17 @@ public class TileMap {
 	
 	public ArrayList<ArrayList<Tile>> getMap(){
 		return arrayX;
+	}
+	
+	public void drawMap(Graphics2D g, int anchorX, int anchorY){
+		for(int i=0; i<arrayX.size(); i++){
+			for(int j=0; j<arrayX.get(i).size(); j++){
+				g.drawImage(arrayX.get(i).get(j).getImage(), 8*i, 8*j, null);
+			}
+		}
+	}
+	
+	public Tile getTile(int xCoord, int yCoord){
+		return arrayX.get((int)xCoord/8).get((int)yCoord/8);
 	}
 }

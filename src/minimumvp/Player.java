@@ -18,25 +18,24 @@ import javax.imageio.ImageIO; //loader
  *
  */
 public class Player extends Sprite{
-	private int _speedX=0; 
-	public int topX=0;
-	public int xCoord=0;
-	public int yCoord=0;
-	public int topY=0;
+	private int _speedX=0;
+	private int _speedY=0;
+	public int xCoord;
+	public int yCoord;
 	public int size;
-	public int range=size;
 	public BufferedImage img; 
 	public Rectangle2D bounds;
 
 	/**
 	 * Create a paddle 
 	 */
-	public Player(int sizeX,int sizeY, BufferedImage img1){
+	public Player(int size1, int x1, int y1, BufferedImage img1){
 		super();
 		//set size of paddle from image size 
-		setSizeY(sizeY);
-		setSizeX(sizeX); 
+		size=size1; 
 		img=img1;
+		xCoord=x1;
+		yCoord=y1;
 	}
 	
 	/**
@@ -50,8 +49,20 @@ public class Player extends Sprite{
 	 *
 	 * @return  Speed to move with each frame
 	 */
-	public int getSpeed() {
+	public int getSpeedX() {
 		return _speedX;
+	}
+	
+	public int getSpeedY(){
+		return _speedY;
+	}
+	
+	public void setSpeedX(int speed1){
+		_speedX=speed1;
+	}
+	
+	public void setSpeedY(int speed1){
+		_speedY=speed1;
 	}
 	
 	/**
@@ -61,44 +72,37 @@ public class Player extends Sprite{
 		this._speedX = speed;
 	}
 	
-	public int getTopX() {
-		return topX;
+	public int getXCoord(){
+		return xCoord;
 	}
 	
-	public void setTopX(int x) {
-		this.topX = x;
-		xCoord[0]=x-getSizeX();
-		xCoord[1]=x;
-		xCoord[2]=x+getSizeX();
+	public int getYCoord(){
+		return yCoord;
 	}
 	
-	public int getTopY() {
-		return topY;
-	}
-	public void setTopY(int y){
-		this.topY = y;
-		yCoord[0]=y;
-		yCoord[1]=y-3*getSizeY();
-		yCoord[2]=y;
+	public void setXCoord(int x1){
+		xCoord=x1;
 	}
 	
-	 public void doMove(boolean moveLeftOrRight){
-		 
-			if(moveLeftOrRight==true) { //move up
-				setTopX(getTopX()-_speedX);
-			} else {
-				setTopX(getTopX()+_speedX); //move down
-			}
-		 
+	public void setYCoord(int y1){
+		yCoord=y1;
 	}
-	 
-	 public void setSprite(int[] xCoord, int[] yCoord){
-		 this.sprite = new Polygon(xCoord, yCoord, 3);
-	 }
-	 
-	 public Polygon getSprite(){
-		 return sprite;
-	 }
+	
+	 public void doMove(int direction){
+		 	switch(direction){
+		 	case '0':
+		 		setXCoord(getXCoord()-_speedX);
+		 		break;
+		 	case '1':
+		 		setYCoord(getYCoord()+_speedY);
+		 		break;
+		 	case '2':
+		 		setXCoord(getXCoord()+_speedX);
+		 		break;
+		 	case '3':
+		 		setYCoord(getYCoord()-_speedY);
+			}	 
+	}
 	 
 	 public Rectangle2D getBounds(){
 		 return bounds;

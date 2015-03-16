@@ -43,13 +43,23 @@ public class Tester extends GameTemplate{
 		System.out.println("Background is not available");
 	}
 	}
+	private static BufferedImage playerImg=null;
+	{try{
+		playerImg=ImageIO.read(new File("ball.png"));
+	} catch(IOException ex){
+		System.out.println("Background is not available");
+	}
+	}
 	
+	static int timeLeft;
+	static int progress=1;
 	static File map1 = new File("map1.txt");
-	TileMap map = new TileMap(map1);
 	static Tile flat = new Tile(tile1, 0, 0);
 	static Tile angledRight = new Tile(tile2, 30, 1);
 	static Tile angledLeft = new Tile(tile3, 30, 2);
 	static Tile angledUp = new Tile(tile4, 45, 3);
+	TileMap map = new TileMap(map1);
+	Level level1 = new Level(map, 60, 50, 50, 110, 110);
 	
 	public static void main(String[] args){
 		Tester game=new Tester();
@@ -81,8 +91,8 @@ public class Tester extends GameTemplate{
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		timeLeft=level1.getAllottedTime();
+		Player p = new Player(15, level1.getStartX(), level1.getStartY(), playerImg);
 	}
 
 	@Override
