@@ -11,21 +11,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-
 import javax.imageio.ImageIO;
 
-public class Tester extends BasicGame{
+public class Tester extends GameTemplate{
 	
-	public Tester(String s) {
-		super(s);
-		// TODO Auto-generated constructor stub
-	}
-
 	private static BufferedImage tile1=null;
 	{try{
 		tile1=ImageIO.read(new File("tile1.png"));
@@ -73,20 +62,10 @@ public class Tester extends BasicGame{
 	Level level1 = new Level(map, 60, 50, 50, 110, 110);
 	
 	public static void main(String[] args){
-		//Tester game=new Tester();
-		//createGameFrame(game, 500, 800);
-		//game.init();
-		//GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		try
-        {
-            AppGameContainer app = new AppGameContainer(new Tester("Tester"));
-            app.setDisplayMode(500, 400, false);
-            app.start();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
+		Tester game=new Tester();
+		createGameFrame(game, 500, 800);
+		game.init();
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	}
 	
 	public void updateFrame(Graphics2D g){
@@ -110,31 +89,14 @@ public class Tester extends BasicGame{
 		
 	}
 
-//	public void init() {
-//		timeLeft=level1.getAllottedTime();
-//		Player p = new Player(15, level1.getStartX(), level1.getStartY(), playerImg);
-//	}
-
-
-//	public void start() {
-		// TODO Auto-generated method stub
-		
-//	}
-
 	@Override
-	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
-		// TODO Auto-generated method stub
-		
+	public void init() {
+		timeLeft=level1.getAllottedTime();
+		Player p = new Player(15, level1.getStartX(), level1.getStartY(), playerImg);
 	}
 
 	@Override
-	public void init(GameContainer arg0) throws SlickException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(GameContainer arg0, int arg1) throws SlickException {
+	public void start() {
 		// TODO Auto-generated method stub
 		
 	}
