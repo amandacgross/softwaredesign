@@ -56,13 +56,10 @@ public class Master extends StateBasedGame{
 	static final int statePlaying = 1;
 	static int timeLeft;
 	static int progress=1;
-	static File map1 = new File("map1.txt");
 	static Tile flat = new Tile(tile1, 0, 0);
 	static Tile angledRight = new Tile(tile2, 30, 1);
 	static Tile angledLeft = new Tile(tile3, 30, 2);
 	static Tile angledUp = new Tile(tile4, 45, 3);
-	TileMap map = new TileMap(map1);
-	Level level1 = new Level(map, 60, 50, 50, 110, 110);
 	
 	public Master(String gameName){
 		super(gameName);
