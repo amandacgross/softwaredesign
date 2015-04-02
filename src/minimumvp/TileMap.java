@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TileMap {
-	ArrayList<ArrayList<Zone>> arrayX = new ArrayList<ArrayList<Zone>>();
+	ArrayList<Zone> arrayX = new ArrayList<Zone>();
 	Scanner sc;
 	
 	public TileMap(File textFile){
@@ -19,31 +19,11 @@ public class TileMap {
 			e.printStackTrace();
 		}
 		while(sc.hasNext()){
-			String s = sc.nextLine();
-			ArrayList<Zone> temp = new ArrayList<Zone>();
-			while(!s.isEmpty()){
-				if(s.charAt(0) != ' '){
-					switch(s.charAt(0)){
-					case '1':
-						temp.add(new Zone(sc));
-						break;
-					case '2':
-						temp.add(new Zone(sc));
-						break;
-					case '3':
-						break;
-					case '4':
-						temp.add(new Zone(sc));
-						break;
-					}
-				}
-				s=s.substring(1);
-			}
-			arrayX.add(temp);
+			arrayX.add(new Zone(sc));
 		}
 	}
 	
-	public ArrayList<ArrayList<Zone>> getMap(){
+	public ArrayList<Zone> getMap(){
 		return arrayX;
 	}
 	

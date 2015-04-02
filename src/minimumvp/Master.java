@@ -14,7 +14,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 import javax.imageio.ImageIO;
-
+//testing
 public class Master extends StateBasedGame{
 	
 	private static BufferedImage tile1=null;
@@ -75,7 +75,7 @@ public class Master extends StateBasedGame{
 		AppGameContainer appgc;
 		try{
 			appgc = new AppGameContainer(new Master("Lucid"));
-			appgc.setDisplayMode(640, 640, false);
+			appgc.setDisplayMode(720, 750, false);
 			appgc.start();
 		}catch(SlickException e){
 			e.printStackTrace();

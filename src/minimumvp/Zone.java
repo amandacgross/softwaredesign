@@ -1,25 +1,24 @@
 package minimumvp;
 
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.awt.Shape;
+
+import org.newdawn.slick.geom.Polygon;
 
 public class Zone {
 	private float xslope;
 	private float yslope;
 	private int type;
-	private float halftone[] =
+	private float typechart[] =
 		{ 	0f, 	0f, //flat slope type 1
 			0f, 	1f, //go down type 2
 			0.5f,	0.5f, //to the side type 3
 			-0.5f,	0.5f,//to the other side type 4
 			5f,		5f //fall zone, you die type 5
 		};
-	private Polygon2D.Double shape;
+	private float[] xCoordinates = new float[4];
+	private float[] yCoordinates = new float[4];
+
+	private Polygon shape;
 
 	/* public Zone scans in data from a text file
 	 * The first line specifies the type of slope
@@ -28,23 +27,53 @@ public class Zone {
 	 * */
 	public Zone (Scanner scr){
 		String holder= scr.nextLine();
-		type= (int) (Integer.parseInt(holder)*365.25);
-		holder=scr.nextLine();
-		double coordx = Integer.parseInt(holder.substring(0,4).trim());
-		double coordy = Integer.parseInt(holder.substring(5,9).trim());
-		shape = new Polygon2D.Double(coordx,coordy);
+		
+		type= (int) (Integer.parseInt(holder));
+		if(type==5){
+			xslope=typechart[2];
+			yslope=typechart[3];
+		}else{
+		xslope=typechart[2*type];
+		yslope=typechart[2*type+1];
+		}
+		float coordx;
+		float coordy;
+		shape = new Polygon();
+		int i=0;
 		while(scr.hasNextLine()){
 			holder=scr.nextLine();
 			if(holder.equals("END")){
-				shape.closePath();
+				shape.closed();
+				break;
 			}
 			else{
-				coordx = Integer.parseInt(holder.substring(0,4).trim());
-				coordy = Integer.parseInt(holder.substring(5,9).trim());
-				shape.lineTo(coordx,coordy);
+				coordx = (int)Double.parseDouble(holder.substring(0,3).trim());
+				coordy = (int)Double.parseDouble(holder.substring(4).trim());
+				xCoordinates[i] = coordx;
+				yCoordinates[i] = coordy;
+				shape.addPoint(coordx,coordy);
+				System.out.println(coordx);
+				System.out.println(coordy);
+				i++;
 			}
 		}	
-	}	
+	}
 	
-	public 
+	public void shift(double mapX, double mapY){
+		shape = new Polygon();
+		for(int i=0; i<4; i++){
+			xCoordinates[i]=(float) (xCoordinates[i]+mapX);
+			yCoordinates[i]=(float) (yCoordinates[i]+mapY);
+			shape.addPoint(xCoordinates[i], yCoordinates[i]);
+		}
+		shape.closed();
+	}
+	
+	public Polygon getShape(){
+		return shape;
+	}
+	
+	public int getType(){
+		return type;
+	}
 }
